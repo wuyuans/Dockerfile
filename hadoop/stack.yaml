@@ -1,0 +1,19 @@
+version: "3.7"
+
+services:
+  namenode:
+    image: wuyuans/hadoop:latest
+    hostname: namenode
+    deploy:
+      replicas: 1
+    environment:
+      - HADOOP_TYPE=master
+      - HADOOP_MASTER_HOST=namenode
+  datanode:
+    image: wuyuans/hadoop:latest
+    hostname: datanode
+    deploy:
+      replicas: 1
+    environment:
+      - HADOOP_TYPE=datanode
+      - HADOOP_MASTER_HOST=namenode
