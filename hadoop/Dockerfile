@@ -1,4 +1,4 @@
-FROM wuyuans/alpine-java:latest
+FROM anapsix/alpine-java:8_jdk
 MAINTAINER wuyuans
 
 ARG HADOOP_VERSION=2.9.0
@@ -18,6 +18,8 @@ RUN set -euxo pipefail && \
   rm -rf ${HADOOP_HOME}/share/doc && \
   mkdir -p /hadoop_data/hdfs/namenode && \
   mkdir -p /hadoop_data/hdfs/datanode
+
+RUN mkdir -p /data/namenode /data/namenode /data/yarn/timeline
 
 ADD entrypoint.sh /entrypoint.sh
 RUN chmod a+x /entrypoint.sh
