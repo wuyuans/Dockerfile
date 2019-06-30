@@ -1,10 +1,10 @@
 FROM anapsix/alpine-java:8_jdk
 MAINTAINER wuyuans
 
-ARG HADOOP_VERSION=2.9.0
+ARG HADOOP_VERSION=2.8.5
 
-VOLUME /hadoop_data/hdfs/namenode
-VOLUME /hadoop_data/hdfs/datanode
+VOLUME /data/namenode
+VOLUME /data/namenode
 
 ENV HADOOP_HOME /hadoop
 ENV HADOOP_MASTER_HOST localhost
@@ -15,11 +15,9 @@ RUN set -euxo pipefail && \
   apk --no-cache add bash curl openssh-client wget openssl && \
   curl http://archive.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-$HADOOP_VERSION.tar.gz | tar xvz && \
   mv hadoop-${HADOOP_VERSION} ${HADOOP_HOME} && \
-  rm -rf ${HADOOP_HOME}/share/doc && \
-  mkdir -p /hadoop_data/hdfs/namenode && \
-  mkdir -p /hadoop_data/hdfs/datanode
+  rm -rf ${HADOOP_HOME}/share/doc
 
-RUN mkdir -p /data/namenode /data/namenode /data/yarn/timeline
+RUN mkdir -p /data/namenode /data/namenode
 
 ADD entrypoint.sh /entrypoint.sh
 RUN chmod a+x /entrypoint.sh
