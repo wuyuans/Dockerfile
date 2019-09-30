@@ -23,4 +23,6 @@ RUN apk upgrade --update \
     && apk del curl \
     && rm -rf /tmp/v2ray /var/cache/apk/*
 
+EXPOSE 10086
+
 ENTRYPOINT ["v2ray","-config","/etc/v2ray/config.json"]
