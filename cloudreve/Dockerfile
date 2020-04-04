@@ -7,10 +7,7 @@ WORKDIR /src
 RUN apk update \
     && apk add git yarn build-base gcc abuild binutils binutils-doc gcc-doc
 
-RUN git clone --recurse-submodules https://github.com/cloudreve/Cloudreve.git \
-    && cd Cloudreve \
-    && git checkout ${VERSION} \
-    && export COMMIT_SHA=$(git rev-parse --short HEAD)
+RUN git clone --recurse-submodules https://github.com/cloudreve/Cloudreve.git
 
 RUN cd /src/Cloudreve/assets \
     && yarn install \
@@ -19,6 +16,8 @@ RUN cd /src/Cloudreve/assets \
 RUN cd /src/Cloudreve \
     && go get github.com/rakyll/statik \
     && statik -src=assets/build/ -include=*.html,*.js,*.json,*.css,*.png,*.svg,*.ico -f \
+    && git checkout ${VERSION} \
+    && export COMMIT_SHA=$(git rev-parse --short HEAD) \
     && go build -a -o cloudreve -ldflags " -X 'github.com/HFO4/cloudreve/pkg/conf.BackendVersion=$VERSION' -X 'github.com/HFO4/cloudreve/pkg/conf.LastCommit=$COMMIT_SHA'"
 
 FROM alpine:3.11
