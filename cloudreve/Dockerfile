@@ -8,6 +8,7 @@ RUN apk update \
     && apk add git yarn build-base gcc abuild binutils binutils-doc gcc-doc
 
 RUN git clone --recurse-submodules https://github.com/cloudreve/Cloudreve.git \
+    && cd Cloudreve \
     && git checkout ${VERSION} \
     && export COMMIT_SHA=$(git rev-parse --short HEAD)
 
