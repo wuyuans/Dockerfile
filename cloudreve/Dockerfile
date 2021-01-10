@@ -1,6 +1,6 @@
 FROM golang:1.14.1-alpine3.11 as builder
 
-ARG VERSION="3.1.1"
+ARG VERSION="3.2.1"
 
 WORKDIR /src
 
